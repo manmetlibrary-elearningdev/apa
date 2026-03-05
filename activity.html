@@ -140,7 +140,7 @@
 
         @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .status-msg { margin: 15px 0; font-weight: 600; min-height: 24px; text-align: center; border-radius: 8px; padding: 10px; }
+        .status-msg { margin: 15px 0; font-weight: 600; min-height: 24px; text-align: center; border-radius: 8px; padding: 10px; outline: none; }
         .status-msg.success { color: #fff; background: var(--success); }
         .status-msg.error { color: #fff; background: var(--error); }
 
@@ -149,6 +149,7 @@
         button:focus { outline: 3px solid var(--highlight); outline-offset: 2px; }
         .btn-check { background: var(--apa-blue); color: #fff; flex-grow: 2; }
         .btn-reset { background: var(--border); color: var(--text-main); flex-grow: 1; }
+        .btn-reveal { background: #636e72; color: #fff; display: none; flex-grow: 1; }
         .btn-next { background: var(--highlight); color: white; display: none; width: 100%; margin-top: 10px; }
         .btn-next.visible { display: inline-block; }
         .btn-menu { background: var(--instruction-bg); color: var(--apa-blue); width: 100%; margin-bottom: 20px; border: 1px solid var(--border); }
@@ -181,7 +182,7 @@
     </div>
 
     <div id="step-1" class="step-section">
-        <button class="btn-menu" id="back-1" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
         <h2 id="heading-1" tabindex="-1" style="outline:none;">Book</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
@@ -193,7 +194,7 @@
         </div>
         <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-1"></div>
-        <div id="status-1" class="status-msg"></div>
+        <div id="status-1" class="status-msg" tabindex="-1"></div>
         <div id="comp-title-1" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-1">
             <div class="item" data-order="1" tabindex="0">Gross, R.</div>
@@ -208,13 +209,14 @@
         </div>
         <div class="button-row">
             <button class="btn-check" id="check-1" onclick="validate(1, 5)">Check Answer</button>
+            <button class="btn-reveal" id="reveal-1" onclick="revealSolution(1, 5)">Reveal Solution</button>
             <button class="btn-reset" onclick="resetTask(1)">Reset Task</button>
             <button class="btn-next" id="next-1" onclick="moveStep(2)">Next Task →</button>
         </div>
     </div>
 
     <div id="step-2" class="step-section">
-        <button class="btn-menu" id="back-2" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
         <h2 id="heading-2" tabindex="-1" style="outline:none;">Online book</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
@@ -226,7 +228,7 @@
         </div>
         <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-2"></div>
-        <div id="status-2" class="status-msg"></div>
+        <div id="status-2" class="status-msg" tabindex="-1"></div>
         <div id="comp-title-2" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-2">
             <div class="item" data-order="1" tabindex="0">Jackson, L. M.</div>
@@ -242,13 +244,14 @@
         </div>
         <div class="button-row">
             <button class="btn-check" id="check-2" onclick="validate(2, 6)">Check Answer</button>
+            <button class="btn-reveal" id="reveal-2" onclick="revealSolution(2, 6)">Reveal Solution</button>
             <button class="btn-reset" onclick="resetTask(2)">Reset Task</button>
             <button class="btn-next" id="next-2" onclick="moveStep(3)">Next Task →</button>
         </div>
     </div>
 
     <div id="step-3" class="step-section">
-        <button class="btn-menu" id="back-3" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
         <h2 id="heading-3" tabindex="-1" style="outline:none;">Journal article</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
@@ -260,7 +263,7 @@
         </div>
         <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-3"></div>
-        <div id="status-3" class="status-msg"></div>
+        <div id="status-3" class="status-msg" tabindex="-1"></div>
         <div id="comp-title-3" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-3">
             <div class="item" data-order="1" tabindex="0">Grady, J. S., Her, M., Moreno, G., Perez, C., & Yelinek, J.</div>
@@ -277,13 +280,14 @@
         </div>
         <div class="button-row">
             <button class="btn-check" id="check-3" onclick="validate(3, 7)">Check Answer</button>
+            <button class="btn-reveal" id="reveal-3" onclick="revealSolution(3, 7)">Reveal Solution</button>
             <button class="btn-reset" onclick="resetTask(3)">Reset Task</button>
             <button class="btn-next" id="next-3" onclick="moveStep(4)">Next Task →</button>
         </div>
     </div>
 
     <div id="step-4" class="step-section">
-        <button class="btn-menu" id="back-4" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
         <h2 id="heading-4" tabindex="-1" style="outline:none;">Book chapter</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
@@ -293,14 +297,12 @@
             <span class="format-label">Format for book chapter</span><br>
             Author/s. (Year). Title In Editor (Ed.), <em>Title</em> (pp. pages). Publisher.
         </div>
-        
         <div class="scenario-card">
             <strong>Task:</strong> How would you reference just the chapter <strong>'Transference interpretations only?'</strong> by <strong>Leites, N.</strong> in the book <strong>'Essential papers on transference'</strong> edited by <strong>A. H. Esman</strong>?
         </div>
-
         <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-4"></div>
-        <div id="status-4" class="status-msg"></div>
+        <div id="status-4" class="status-msg" tabindex="-1"></div>
         <div id="comp-title-4" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-4">
             <div class="item" data-order="1" tabindex="0">Leites, N.</div>
@@ -317,13 +319,14 @@
         </div>
         <div class="button-row">
             <button class="btn-check" id="check-4" onclick="validate(4, 7)">Check Answer</button>
+            <button class="btn-reveal" id="reveal-4" onclick="revealSolution(4, 7)">Reveal Solution</button>
             <button class="btn-reset" onclick="resetTask(4)">Reset Task</button>
             <button class="btn-next" id="next-4" onclick="moveStep(5)">Next Task →</button>
         </div>
     </div>
 
     <div id="step-5" class="step-section">
-        <button class="btn-menu" id="back-5" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
         <h2 id="heading-5" tabindex="-1" style="outline:none;">Webpage</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
@@ -335,7 +338,7 @@
         </div>
         <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-5"></div>
-        <div id="status-5" class="status-msg"></div>
+        <div id="status-5" class="status-msg" tabindex="-1"></div>
         <div id="comp-title-5" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-5">
             <div class="item" data-order="1" tabindex="0">Kompany, J. B.</div>
@@ -350,13 +353,14 @@
         </div>
         <div class="button-row">
             <button class="btn-check" id="check-5" onclick="validate(5, 5)">Check Answer</button>
+            <button class="btn-reveal" id="reveal-5" onclick="revealSolution(5, 5)">Reveal Solution</button>
             <button class="btn-reset" onclick="resetTask(5)">Reset Task</button>
             <button class="btn-next" id="next-5" onclick="moveStep(6)">Finish & Review Summary →</button>
         </div>
     </div>
 
     <div id="step-6" class="step-section">
-        <button class="btn-menu" id="back-6" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
         <h2 id="heading-6" tabindex="-1" style="outline:none;">APA 7th Referencing Summary</h2>
         <div class="interaction-guide">
             <h3>Format Cheat Sheet</h3>
@@ -401,6 +405,7 @@
 
 <script>
     let completedSteps = new Set();
+    let failCounts = {};
 
     function shuffleZone(zone) {
         const items = Array.from(zone.children);
@@ -412,7 +417,6 @@
 
     window.onload = () => { document.querySelectorAll('.source-zone').forEach(zone => shuffleZone(zone)); };
 
-    // Shared Movement logic
     function handleItemMove(item) {
         if (!item || item.classList.contains('correct')) return;
         const stepSection = item.closest('.step-section');
@@ -424,7 +428,7 @@
         else sourceZone.appendChild(item);
         
         item.classList.remove('incorrect');
-        setTimeout(() => item.focus(), 10); // Retain focus for keyboard users
+        setTimeout(() => item.focus(), 10);
     }
 
     document.addEventListener('click', e => {
@@ -447,13 +451,7 @@
 
     function validate(stepId, totalItems) {
         const targetZone = document.getElementById(`target-${stepId}`);
-        const sourceZone = document.getElementById(`source-${stepId}`);
         const statusMsg = document.getElementById(`status-${stepId}`);
-        const finalCard = document.getElementById(`final-card-${stepId}`);
-        const apaText = document.getElementById(`apa-text-${stepId}`);
-        const nextBtn = document.getElementById(`next-${stepId}`);
-        const checkBtn = document.getElementById(`check-${stepId}`);
-        const compTitle = document.getElementById(`comp-title-${stepId}`);
         const items = Array.from(targetZone.children);
         
         let correctCount = 0;
@@ -461,7 +459,7 @@
             if (parseInt(item.dataset.order) === index + 1) {
                 item.classList.add('correct');
                 item.classList.remove('incorrect');
-                item.tabIndex = -1; // Lock from tabbing once verified
+                item.tabIndex = -1;
                 correctCount++;
             } else {
                 item.classList.add('incorrect');
@@ -473,29 +471,74 @@
         if (items.length < totalItems) {
             statusMsg.innerHTML = "Place all components in the box first!";
             statusMsg.className = "status-msg error";
+            statusMsg.focus();
             return;
         }
 
         if (correctCount === totalItems) {
-            statusMsg.innerHTML = "Excellent! ✓ All parts are correctly formatted.";
-            statusMsg.className = "status-msg success";
-            const fullRef = items.map(i => i.innerHTML).join(' ');
-            apaText.innerHTML = fullRef;
-            sourceZone.style.display = 'none';
-            compTitle.style.display = 'none';
-            finalCard.classList.add('visible');
-            if(nextBtn) {
-                nextBtn.classList.add('visible');
-                nextBtn.focus();
-            }
-            checkBtn.style.display = 'none';
-
-            completedSteps.add(stepId);
-            updateDashboard(stepId, true);
+            handleSuccess(stepId, items);
         } else {
             statusMsg.innerHTML = `Order incorrect: ${correctCount} of ${totalItems} correct.`;
             statusMsg.className = "status-msg error";
+            statusMsg.focus();
+            
+            // TRACK FAILURES FOR REVEAL BUTTON
+            failCounts[stepId] = (failCounts[stepId] || 0) + 1;
+            if (failCounts[stepId] >= 1) {
+                document.getElementById(`reveal-${stepId}`).style.display = 'inline-block';
+            }
         }
+    }
+
+    function revealSolution(stepId, totalItems) {
+        const targetZone = document.getElementById(`target-${stepId}`);
+        const sourceZone = document.getElementById(`source-${stepId}`);
+        const items = Array.from(document.querySelectorAll(`#step-${stepId} .item`));
+
+        // Sort items by data-order
+        items.sort((a, b) => parseInt(a.dataset.order) - parseInt(b.dataset.order));
+
+        // Arrange in target correctly
+        targetZone.innerHTML = '';
+        items.forEach(item => {
+            item.classList.remove('incorrect');
+            item.classList.add('correct');
+            item.tabIndex = -1;
+            targetZone.appendChild(item);
+        });
+
+        handleSuccess(stepId, items);
+        document.getElementById(`status-${stepId}`).innerHTML = "Solution revealed! Compare this with your attempt.";
+    }
+
+    function handleSuccess(stepId, items) {
+        const statusMsg = document.getElementById(`status-${stepId}`);
+        const finalCard = document.getElementById(`final-card-${stepId}`);
+        const apaText = document.getElementById(`apa-text-${stepId}`);
+        const nextBtn = document.getElementById(`next-${stepId}`);
+        const checkBtn = document.getElementById(`check-${stepId}`);
+        const revealBtn = document.getElementById(`reveal-${stepId}`);
+        const sourceZone = document.getElementById(`source-${stepId}`);
+        const compTitle = document.getElementById(`comp-title-${stepId}`);
+
+        statusMsg.innerHTML = "Excellent! ✓ All parts are correctly formatted.";
+        statusMsg.className = "status-msg success";
+        
+        const fullRef = items.map(i => i.innerHTML.replace(/<span.*span>/g, '')).join(' ');
+        apaText.innerHTML = fullRef;
+        
+        sourceZone.style.display = 'none';
+        compTitle.style.display = 'none';
+        finalCard.classList.add('visible');
+        if(nextBtn) {
+            nextBtn.classList.add('visible');
+            nextBtn.focus();
+        }
+        checkBtn.style.display = 'none';
+        if(revealBtn) revealBtn.style.display = 'none';
+
+        completedSteps.add(stepId);
+        updateDashboard(stepId, true);
     }
 
     function updateDashboard(id, isDone) {
@@ -516,11 +559,8 @@
         document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
         const nextStep = document.getElementById(`step-${nextId}`);
         nextStep.classList.add('active');
-        
-        // Accessibility focus shift
         const heading = document.getElementById(`heading-${nextId}`);
         if (heading) heading.focus();
-
         window.scrollTo(0,0);
     }
 
@@ -531,6 +571,7 @@
         const finalCard = document.getElementById(`final-card-${stepId}`);
         const nextBtn = document.getElementById(`next-${stepId}`);
         const checkBtn = document.getElementById(`check-${stepId}`);
+        const revealBtn = document.getElementById(`reveal-${stepId}`);
         const compTitle = document.getElementById(`comp-title-${stepId}`);
 
         Array.from(targetZone.children).forEach(item => {
@@ -547,7 +588,9 @@
         finalCard.classList.remove('visible');
         if(nextBtn) nextBtn.classList.remove('visible');
         checkBtn.style.display = 'inline-block';
+        if(revealBtn) revealBtn.style.display = 'none';
 
+        failCounts[stepId] = 0;
         completedSteps.delete(stepId);
         updateDashboard(stepId, false);
         moveStep(stepId);
