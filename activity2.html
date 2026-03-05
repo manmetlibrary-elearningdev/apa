@@ -57,11 +57,25 @@
 
         h1 { color: var(--apa-blue); text-align: center; border-bottom: 2px solid var(--highlight); padding-bottom: 15px; }
 
+        /* Dashboard Styles */
+        .menu-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px; }
+        .menu-item { 
+            padding: 20px; background: var(--zone-bg); border: 2px solid var(--border); 
+            border-radius: 12px; cursor: pointer; display: flex; justify-content: space-between; 
+            align-items: center; transition: all 0.2s; font-weight: 600; color: var(--apa-blue);
+            outline: none;
+        }
+        .menu-item:focus { border-color: var(--highlight); box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4); }
+        .menu-item:hover { border-color: var(--highlight); transform: translateX(5px); }
+        .menu-item .badge { font-size: 0.8rem; padding: 4px 10px; border-radius: 20px; background: var(--border); color: var(--text-main); }
+        .menu-item.done { border-color: var(--success); }
+        .menu-item.done .badge { background: var(--success); color: white; }
+
         .progress-container {
             width: 100%; height: 8px; background: var(--border);
             border-radius: 10px; margin: 20px 0 40px; overflow: hidden;
         }
-        #progress-fill { height: 100%; width: 20%; background: var(--highlight); transition: width 0.4s ease; }
+        #progress-fill { height: 100%; width: 0%; background: var(--highlight); transition: width 0.4s ease; }
 
         .step-section { display: none; }
         .step-section.active { display: block; animation: fadeIn 0.3s; }
@@ -73,6 +87,7 @@
             margin-bottom: 30px; font-size: 0.95rem;
             color: var(--text-main); border: 1px solid var(--border);
         }
+        .interaction-guide h3 { margin-top: 0; margin-bottom: 10px; font-size: 1.1rem; font-weight: 600; }
 
         .instruction-card {
             background: var(--zone-bg); border-left: 4px solid var(--highlight);
@@ -98,7 +113,11 @@
             border-radius: 6px; cursor: pointer; font-weight: 500;
             display: flex; align-items: center; gap: 8px;
             transition: all 0.2s; user-select: none; font-size: 0.95rem;
+            outline: none;
         }
+        /* KEY ACCESSIBILITY FIX: visible ring */
+        .item:focus { border-color: var(--highlight); box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4); background: var(--instruction-bg); }
+
         .item.correct { background: var(--success); border-color: var(--success); color: white; cursor: default; }
         .item.incorrect { background: var(--error); border-color: var(--error); color: white; }
 
@@ -111,7 +130,7 @@
         .apa-formatted {
             padding-left: 36px; text-indent: -36px; 
             font-family: 'Times New Roman', Times, serif; 
-            font-size: 1.2rem; line-height: 2; 
+            font-size: 1.1rem; line-height: 2; 
             word-wrap: break-word; color: var(--text-main);
             margin-top: 10px;
         }
@@ -124,10 +143,12 @@
 
         .button-row { display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap; }
         button { padding: 14px 28px; border-radius: 10px; font-weight: 600; cursor: pointer; border: none; font-size: 1rem; }
+        button:focus { outline: 3px solid var(--highlight); outline-offset: 2px; }
         .btn-check { background: var(--apa-blue); color: #fff; flex-grow: 2; }
         .btn-reset { background: var(--border); color: var(--text-main); flex-grow: 1; }
         .btn-next { background: var(--highlight); color: white; display: none; width: 100%; margin-top: 10px; }
         .btn-next.visible { display: inline-block; }
+        .btn-menu { background: var(--instruction-bg); color: var(--apa-blue); width: 100%; margin-bottom: 20px; border: 1px solid var(--border); }
 
         @media (max-width: 600px) { .container { padding: 20px; } .button-row { flex-direction: column; } }
     </style>
@@ -138,12 +159,31 @@
     <h1>APA 7th Referencing</h1>
     <div class="progress-container"><div id="progress-fill"></div></div>
 
-    <div id="step-1" class="step-section active">
+    <div id="step-0" class="step-section active">
+        <h2 id="heading-0" tabindex="-1" style="outline:none;">Dashboard</h2>
+        <div class="interaction-guide">
+            <h3>Choose type of reference</h3>
+            <span class="instruction-text">Select a source type below to practice APA 7th formatting. Complete all 5 tasks to view the full summary.</span>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-item" id="menu-1" onclick="moveStep(1)" tabindex="0" role="button">1. Book <span class="badge" id="badge-1">Not Started</span></div>
+            <div class="menu-item" id="menu-2" onclick="moveStep(2)" tabindex="0" role="button">2. Online book <span class="badge" id="badge-2">Not Started</span></div>
+            <div class="menu-item" id="menu-3" onclick="moveStep(3)" tabindex="0" role="button">3. Journal article <span class="badge" id="badge-3">Not Started</span></div>
+            <div class="menu-item" id="menu-4" onclick="moveStep(4)" tabindex="0" role="button">4. Book chapter <span class="badge" id="badge-4">Not Started</span></div>
+            <div class="menu-item" id="menu-5" onclick="moveStep(5)" tabindex="0" role="button">5. Webpage <span class="badge" id="badge-5">Not Started</span></div>
+        </div>
+        <div class="button-row">
+            <button class="btn-check" style="width: 100%;" onclick="moveStep(6)">Jump to Final Summary →</button>
+        </div>
+    </div>
+
+    <div id="step-1" class="step-section">
+        <button class="btn-menu" id="back-1" onclick="moveStep(0)">← Back to Menu</button>
+        <h2 id="heading-1" tabindex="-1" style="outline:none;">Book</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+            <span class="instruction-text">Put the components of the reference into the correct order. Use <strong>Tab</strong> to navigate and <strong>Enter/Space</strong> to move items.</span>
         </div>
-        <h2>Book</h2>
         <div class="instruction-card">
             <span class="format-label">Format for book</span><br>
             Author/s. (Copyright year). <em>Title</em> (Edition). Publisher.
@@ -153,11 +193,11 @@
         <div id="status-1" class="status-msg"></div>
         <div id="comp-title-1" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-1">
-            <div class="item" data-order="1">Gross, R.</div>
-            <div class="item" data-order="2">(2020).</div>
-            <div class="item" data-order="3"><em>Psychology: The science of mind and behaviour</em></div>
-            <div class="item" data-order="4">(8th ed.).</div>
-            <div class="item" data-order="5">Hodder Education.</div>
+            <div class="item" data-order="1" tabindex="0">Gross, R.</div>
+            <div class="item" data-order="2" tabindex="0">(2020).</div>
+            <div class="item" data-order="3" tabindex="0"><em>Psychology: The science of mind and behaviour</em></div>
+            <div class="item" data-order="4" tabindex="0">(8th ed.).</div>
+            <div class="item" data-order="5" tabindex="0">Hodder Education.</div>
         </div>
         <div id="final-card-1" class="final-reference-card">
             <div class="format-label" style="color: var(--success);">Correct APA Format:</div>
@@ -165,17 +205,18 @@
         </div>
         <div class="button-row">
             <button class="btn-check" id="check-1" onclick="validate(1, 5)">Check Answer</button>
-            <button class="btn-reset" onclick="resetStep(1)">Reset Task</button>
+            <button class="btn-reset" onclick="resetTask(1)">Reset Task</button>
             <button class="btn-next" id="next-1" onclick="moveStep(2)">Next Task →</button>
         </div>
     </div>
 
     <div id="step-2" class="step-section">
+        <button class="btn-menu" id="back-2" onclick="moveStep(0)">← Back to Menu</button>
+        <h2 id="heading-2" tabindex="-1" style="outline:none;">Online book</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+            <span class="instruction-text">Put the components into the correct order. Use <strong>Tab</strong> to navigate and <strong>Enter/Space</strong> to move items.</span>
         </div>
-        <h2>Online book</h2>
         <div class="instruction-card">
             <span class="format-label">Format for online book</span><br>
             Author/s. (Copyright year). <em>Title</em> (Edition). Publisher. DOI or URL.
@@ -185,12 +226,12 @@
         <div id="status-2" class="status-msg"></div>
         <div id="comp-title-2" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-2">
-            <div class="item" data-order="1">Jackson, L. M.</div>
-            <div class="item" data-order="2">(2019).</div>
-            <div class="item" data-order="3"><em>The psychology of prejudice: From attitudes to social action</em></div>
-            <div class="item" data-order="4">(2nd ed.).</div>
-            <div class="item" data-order="5">American Psychological Association.</div>
-            <div class="item" data-order="6">https://doi.org/10.1037/0000168-000</div>
+            <div class="item" data-order="1" tabindex="0">Jackson, L. M.</div>
+            <div class="item" data-order="2" tabindex="0">(2019).</div>
+            <div class="item" data-order="3" tabindex="0"><em>The psychology of prejudice: From attitudes to social action</em></div>
+            <div class="item" data-order="4" tabindex="0">(2nd ed.).</div>
+            <div class="item" data-order="5" tabindex="0">American Psychological Association.</div>
+            <div class="item" data-order="6" tabindex="0">https://doi.org/10.1037/0000168-000</div>
         </div>
         <div id="final-card-2" class="final-reference-card">
             <div class="format-label" style="color: var(--success);">Correct APA Format:</div>
@@ -198,17 +239,18 @@
         </div>
         <div class="button-row">
             <button class="btn-check" id="check-2" onclick="validate(2, 6)">Check Answer</button>
-            <button class="btn-reset" onclick="resetStep(2)">Reset Task</button>
+            <button class="btn-reset" onclick="resetTask(2)">Reset Task</button>
             <button class="btn-next" id="next-2" onclick="moveStep(3)">Next Task →</button>
         </div>
     </div>
 
     <div id="step-3" class="step-section">
+        <button class="btn-menu" id="back-3" onclick="moveStep(0)">← Back to Menu</button>
+        <h2 id="heading-3" tabindex="-1" style="outline:none;">Journal article</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+            <span class="instruction-text">Put the components into the correct order. Use <strong>Tab</strong> to navigate and <strong>Enter/Space</strong> to move items.</span>
         </div>
-        <h2>Journal article</h2>
         <div class="instruction-card">
             <span class="format-label">Format for journal article</span><br>
             Author/s. (Year). Title. <em>Journal</em>, <em>Vol</em>(Issue), Pages. DOI/URL.
@@ -218,13 +260,13 @@
         <div id="status-3" class="status-msg"></div>
         <div id="comp-title-3" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-3">
-            <div class="item" data-order="1">Grady, J. S., Her, M., Moreno, G., Perez, C., & Yelinek, J.</div>
-            <div class="item" data-order="2">(2019).</div>
-            <div class="item" data-order="3">Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States.</div>
-            <div class="item" data-order="4"><em>Psychology of Popular Media Culture</em>,</div>
-            <div class="item" data-order="5"><em>8</em>(3),</div>
-            <div class="item" data-order="6">207–217.</div>
-            <div class="item" data-order="7">https://doi.org/10.1037/ppm0000185</div>
+            <div class="item" data-order="1" tabindex="0">Grady, J. S., Her, M., Moreno, G., Perez, C., & Yelinek, J.</div>
+            <div class="item" data-order="2" tabindex="0">(2019).</div>
+            <div class="item" data-order="3" tabindex="0">Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States.</div>
+            <div class="item" data-order="4" tabindex="0"><em>Psychology of Popular Media Culture</em>,</div>
+            <div class="item" data-order="5" tabindex="0"><em>8</em>(3),</div>
+            <div class="item" data-order="6" tabindex="0">207–217.</div>
+            <div class="item" data-order="7" tabindex="0">https://doi.org/10.1037/ppm0000185</div>
         </div>
         <div id="final-card-3" class="final-reference-card">
             <div class="format-label" style="color: var(--success);">Correct APA Format:</div>
@@ -232,17 +274,18 @@
         </div>
         <div class="button-row">
             <button class="btn-check" id="check-3" onclick="validate(3, 7)">Check Answer</button>
-            <button class="btn-reset" onclick="resetStep(3)">Reset Task</button>
+            <button class="btn-reset" onclick="resetTask(3)">Reset Task</button>
             <button class="btn-next" id="next-3" onclick="moveStep(4)">Next Task →</button>
         </div>
     </div>
 
     <div id="step-4" class="step-section">
+        <button class="btn-menu" id="back-4" onclick="moveStep(0)">← Back to Menu</button>
+        <h2 id="heading-4" tabindex="-1" style="outline:none;">Book chapter</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+            <span class="instruction-text">Put the components into the correct order. Use <strong>Tab</strong> to navigate and <strong>Enter/Space</strong> to move items.</span>
         </div>
-        <h2>Book chapter</h2>
         <div class="instruction-card">
             <span class="format-label">Format for book chapter</span><br>
             Author/s. (Year). Title In Editor (Ed.), <em>Title</em> (pp. pages). Publisher.
@@ -252,13 +295,13 @@
         <div id="status-4" class="status-msg"></div>
         <div id="comp-title-4" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-4">
-            <div class="item" data-order="1">Leites, N.</div>
-            <div class="item" data-order="2">(2013).</div>
-            <div class="item" data-order="3">Transference interpretations only?</div>
-            <div class="item" data-order="4">In A. H. Esman (Ed.),</div>
-            <div class="item" data-order="5"><em>Essential papers on transference</em></div>
-            <div class="item" data-order="6">(pp. 434–454).</div>
-            <div class="item" data-order="7">New York University Press.</div>
+            <div class="item" data-order="1" tabindex="0">Leites, N.</div>
+            <div class="item" data-order="2" tabindex="0">(2013).</div>
+            <div class="item" data-order="3" tabindex="0">Transference interpretations only?</div>
+            <div class="item" data-order="4" tabindex="0">In A. H. Esman (Ed.),</div>
+            <div class="item" data-order="5" tabindex="0"><em>Essential papers on transference</em></div>
+            <div class="item" data-order="6" tabindex="0">(pp. 434–454).</div>
+            <div class="item" data-order="7" tabindex="0">New York University Press.</div>
         </div>
         <div id="final-card-4" class="final-reference-card">
             <div class="format-label" style="color: var(--success);">Correct APA Format:</div>
@@ -266,17 +309,18 @@
         </div>
         <div class="button-row">
             <button class="btn-check" id="check-4" onclick="validate(4, 7)">Check Answer</button>
-            <button class="btn-reset" onclick="resetStep(4)">Reset Task</button>
+            <button class="btn-reset" onclick="resetTask(4)">Reset Task</button>
             <button class="btn-next" id="next-4" onclick="moveStep(5)">Next Task →</button>
         </div>
     </div>
 
     <div id="step-5" class="step-section">
+        <button class="btn-menu" id="back-5" onclick="moveStep(0)">← Back to Menu</button>
+        <h2 id="heading-5" tabindex="-1" style="outline:none;">Webpage</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+            <span class="instruction-text">Put the components into the correct order. Use <strong>Tab</strong> to navigate and <strong>Enter/Space</strong> to move items.</span>
         </div>
-        <h2>Webpage</h2>
         <div class="instruction-card">
             <span class="format-label">Format for webpage</span><br>
             Author/s. (Date). <em>Title</em>. Website name. URL.
@@ -286,11 +330,11 @@
         <div id="status-5" class="status-msg"></div>
         <div id="comp-title-5" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-5">
-            <div class="item" data-order="1">Kompany, J. B.</div>
-            <div class="item" data-order="2">(2019, January 19).</div>
-            <div class="item" data-order="3"><em>Learn to code</em>.</div>
-            <div class="item" data-order="4">Medium.</div>
-            <div class="item" data-order="5">https://medium.com/lifeofcode/learn-to-code-53cd2864</div>
+            <div class="item" data-order="1" tabindex="0">Kompany, J. B.</div>
+            <div class="item" data-order="2" tabindex="0">(2019, January 19).</div>
+            <div class="item" data-order="3" tabindex="0"><em>Learn to code</em>.</div>
+            <div class="item" data-order="4" tabindex="0">Medium.</div>
+            <div class="item" data-order="5" tabindex="0">https://medium.com/lifeofcode/learn-to-code-53cd2864</div>
         </div>
         <div id="final-card-5" class="final-reference-card">
             <div class="format-label" style="color: var(--success);">Correct APA Format:</div>
@@ -298,12 +342,58 @@
         </div>
         <div class="button-row">
             <button class="btn-check" id="check-5" onclick="validate(5, 5)">Check Answer</button>
-            <button class="btn-reset" onclick="resetStep(5)">Reset Task</button>
+            <button class="btn-reset" onclick="resetTask(5)">Reset Task</button>
+            <button class="btn-next" id="next-5" onclick="moveStep(6)">Finish & Review Summary →</button>
+        </div>
+    </div>
+
+    <div id="step-6" class="step-section">
+        <button class="btn-menu" id="back-6" onclick="moveStep(0)">← Back to Menu</button>
+        <h2 id="heading-6" tabindex="-1" style="outline:none;">APA 7th Referencing Summary</h2>
+        <div class="interaction-guide">
+            <h3>Format Cheat Sheet</h3>
+            <span class="instruction-text">Review the common APA 7th formats and examples encountered in this activity. Note the hanging indents below.</span>
+        </div>
+
+        <div class="instruction-card">
+            <span class="format-label">Book</span><br>
+            Author/s. (Copyright year). <em>Title</em> (Edition). Publisher.
+            <div class="apa-formatted">Gross, R. (2020). <em>Psychology: The science of mind and behaviour</em> (8th ed.). Hodder Education.</div>
+        </div>
+
+        <div class="instruction-card">
+            <span class="format-label">Online Book</span><br>
+            Author/s. (Copyright year). <em>Title</em> (Edition). Publisher. DOI or URL.
+            <div class="apa-formatted">Jackson, L. M. (2019). <em>The psychology of prejudice: From attitudes to social action</em> (2nd ed.). American Psychological Association. https://doi.org/10.1037/0000168-000</div>
+        </div>
+
+        <div class="instruction-card">
+            <span class="format-label">Journal Article</span><br>
+            Author/s. (Year). Title. <em>Journal</em>, <em>Vol</em>(Issue), Pages. DOI/URL.
+            <div class="apa-formatted">Grady, J. S., Her, M., Moreno, G., Perez, C., & Yelinek, J. (2019). Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States. <em>Psychology of Popular Media Culture</em>, <em>8</em>(3), 207–217. https://doi.org/10.1037/ppm0000185</div>
+        </div>
+
+        <div class="instruction-card">
+            <span class="format-label">Book Chapter</span><br>
+            Author/s. (Year). Title In Editor (Ed.), <em>Title</em> (pp. pages). Publisher.
+            <div class="apa-formatted">Leites, N. (2013). Transference interpretations only? In A. H. Esman (Ed.), <em>Essential papers on transference</em> (pp. 434–454). New York University Press.</div>
+        </div>
+
+        <div class="instruction-card">
+            <span class="format-label">Webpage</span><br>
+            Author/s. (Date). <em>Title</em>. Website name. URL.
+            <div class="apa-formatted">Kompany, J. B. (2019, January 19). <em>Learn to code</em>. Medium. https://medium.com/lifeofcode/learn-to-code-53cd2864</div>
+        </div>
+
+        <div class="button-row">
+            <button class="btn-check" style="width: 100%;" onclick="restartActivity()">Restart All Tasks</button>
         </div>
     </div>
 </div>
 
 <script>
+    let completedSteps = new Set();
+
     function shuffleZone(zone) {
         const items = Array.from(zone.children);
         for (let i = items.length - 1; i > 0; i--) {
@@ -314,25 +404,51 @@
 
     window.onload = () => { document.querySelectorAll('.source-zone').forEach(zone => shuffleZone(zone)); };
 
-    document.addEventListener('click', function(e) {
-        const item = e.target.closest('.item');
+    // SHARED MOVEMENT LOGIC
+    function handleItemMove(item) {
         if (!item || item.classList.contains('correct')) return;
-        const stepId = item.closest('.step-section').id.split('-')[1];
+        const stepSection = item.closest('.step-section');
+        const stepId = stepSection.id.split('-')[1];
         const targetZone = document.getElementById(`target-${stepId}`);
         const sourceZone = document.getElementById(`source-${stepId}`);
+        
         if (item.parentNode === sourceZone) targetZone.appendChild(item);
         else sourceZone.appendChild(item);
+        
         item.classList.remove('incorrect');
+        
+        // FOCUS RETENTION: Keep focus on the item after it moves
+        setTimeout(() => item.focus(), 10);
+    }
+
+    document.addEventListener('click', e => {
+        const item = e.target.closest('.item');
+        if (item) handleItemMove(item);
+    });
+
+    // Keydown listener for Accessibility
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            if (e.target.classList.contains('item')) { 
+                e.preventDefault(); 
+                handleItemMove(e.target); 
+            }
+            if (e.target.classList.contains('menu-item')) {
+                e.preventDefault();
+                e.target.click();
+            }
+        }
     });
 
     function validate(stepId, totalItems) {
         const targetZone = document.getElementById(`target-${stepId}`);
-        const sourceZone = document.getElementById(`source-${stepId}`);
         const statusMsg = document.getElementById(`status-${stepId}`);
         const finalCard = document.getElementById(`final-card-${stepId}`);
         const apaText = document.getElementById(`apa-text-${stepId}`);
         const nextBtn = document.getElementById(`next-${stepId}`);
         const checkBtn = document.getElementById(`check-${stepId}`);
+        const sourceZone = document.getElementById(`source-${stepId}`);
+        const compTitle = document.getElementById(`comp-title-${stepId}`);
         const items = Array.from(targetZone.children);
         
         let correctCount = 0;
@@ -340,10 +456,12 @@
             if (parseInt(item.dataset.order) === index + 1) {
                 item.classList.add('correct');
                 item.classList.remove('incorrect');
+                item.tabIndex = -1; // Locked
                 correctCount++;
             } else {
                 item.classList.add('incorrect');
                 item.classList.remove('correct');
+                item.tabIndex = 0;
             }
         });
 
@@ -359,23 +477,82 @@
             const fullRef = items.map(i => i.innerHTML).join(' ');
             apaText.innerHTML = fullRef;
             sourceZone.style.display = 'none';
-            document.getElementById(`comp-title-${stepId}`).style.display = 'none';
+            compTitle.style.display = 'none';
             finalCard.classList.add('visible');
-            if(nextBtn) nextBtn.classList.add('visible');
+            if(nextBtn) {
+                nextBtn.classList.add('visible');
+                nextBtn.focus(); // Help move forward
+            }
             checkBtn.style.display = 'none';
+
+            completedSteps.add(stepId);
+            updateDashboard(stepId, true);
         } else {
             statusMsg.innerHTML = `Order incorrect: ${correctCount} of ${totalItems} correct.`;
             statusMsg.className = "status-msg error";
         }
     }
 
-    function resetStep(stepId) { location.reload(); }
+    function updateDashboard(id, isDone) {
+        const menuItem = document.getElementById(`menu-${id}`);
+        const badge = document.getElementById(`badge-${id}`);
+        if(isDone) {
+            menuItem.classList.add('done');
+            badge.innerHTML = "Completed ✅";
+        } else {
+            menuItem.classList.remove('done');
+            badge.innerHTML = "Not Started";
+        }
+        const progress = (completedSteps.size / 5) * 100;
+        document.getElementById('progress-fill').style.width = progress + '%';
+    }
 
     function moveStep(nextId) {
         document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
-        document.getElementById(`step-${nextId}`).classList.add('active');
-        document.getElementById('progress-fill').style.width = (nextId * 20) + '%';
+        const nextStep = document.getElementById(`step-${nextId}`);
+        nextStep.classList.add('active');
+        
+        // SECTION FOCUS: Focus the heading of the new view
+        const heading = document.getElementById(`heading-${nextId}`);
+        if (heading) heading.focus();
+
         window.scrollTo(0,0);
+    }
+
+    function resetTask(stepId) {
+        const targetZone = document.getElementById(`target-${stepId}`);
+        const sourceZone = document.getElementById(`source-${stepId}`);
+        const statusMsg = document.getElementById(`status-${stepId}`);
+        const finalCard = document.getElementById(`final-card-${stepId}`);
+        const nextBtn = document.getElementById(`next-${stepId}`);
+        const checkBtn = document.getElementById(`check-${stepId}`);
+        const compTitle = document.getElementById(`comp-title-${stepId}`);
+
+        Array.from(targetZone.children).forEach(item => {
+            item.classList.remove('correct', 'incorrect');
+            item.tabIndex = 0;
+            sourceZone.appendChild(item);
+        });
+        
+        shuffleZone(sourceZone);
+        sourceZone.style.display = 'flex';
+        compTitle.style.display = 'block';
+        statusMsg.innerHTML = "";
+        statusMsg.className = "status-msg";
+        finalCard.classList.remove('visible');
+        if(nextBtn) nextBtn.classList.remove('visible');
+        checkBtn.style.display = 'inline-block';
+
+        completedSteps.delete(stepId);
+        updateDashboard(stepId, false);
+        moveStep(stepId);
+    }
+
+    function restartActivity() {
+        for (let i = 1; i <= 5; i++) resetTask(i);
+        completedSteps.clear();
+        document.getElementById('progress-fill').style.width = '0%';
+        moveStep(0);
     }
 </script>
 </body>
