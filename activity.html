@@ -6,7 +6,7 @@
     <title>APA 7th Referencing Activity</title>
     <style>
         :root {
-            /* Light Mode Variables - FROM OG APA */
+            /* Light Mode Variables */
             --apa-blue: #2c3e50;
             --highlight: #3498db;
             --bg-light: #f4f7f6;
@@ -111,7 +111,11 @@
             border-radius: 6px; cursor: pointer; font-weight: 500;
             display: flex; align-items: center; gap: 8px;
             transition: all 0.2s; user-select: none; font-size: 0.95rem;
+            outline: none;
         }
+        /* KEY FIX: Keyboard selection styling */
+        .item:focus { border-color: var(--highlight); box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4); background: var(--instruction-bg); }
+
         .item.correct { background: var(--success); border-color: var(--success); color: white; cursor: default; }
         .item.incorrect { background: var(--error); border-color: var(--error); color: white; }
 
@@ -185,11 +189,11 @@
         <div id="status-1" class="status-msg"></div>
         <div id="comp-title-1" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-1">
-            <div class="item" data-order="1">Gross, R.</div>
-            <div class="item" data-order="2">(2020).</div>
-            <div class="item" data-order="3"><em>Psychology: The science of mind and behaviour</em></div>
-            <div class="item" data-order="4">(8th ed.).</div>
-            <div class="item" data-order="5">Hodder Education.</div>
+            <div class="item" data-order="1" tabindex="0">Gross, R.</div>
+            <div class="item" data-order="2" tabindex="0">(2020).</div>
+            <div class="item" data-order="3" tabindex="0"><em>Psychology: The science of mind and behaviour</em></div>
+            <div class="item" data-order="4" tabindex="0">(8th ed.).</div>
+            <div class="item" data-order="5" tabindex="0">Hodder Education.</div>
         </div>
         <div id="final-card-1" class="final-reference-card">
             <div class="format-label" style="color: var(--success);">Correct APA Format:</div>
@@ -218,12 +222,12 @@
         <div id="status-2" class="status-msg"></div>
         <div id="comp-title-2" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-2">
-            <div class="item" data-order="1">Jackson, L. M.</div>
-            <div class="item" data-order="2">(2019).</div>
-            <div class="item" data-order="3"><em>The psychology of prejudice: From attitudes to social action</em></div>
-            <div class="item" data-order="4">(2nd ed.).</div>
-            <div class="item" data-order="5">American Psychological Association.</div>
-            <div class="item" data-order="6">https://doi.org/10.1037/0000168-000</div>
+            <div class="item" data-order="1" tabindex="0">Jackson, L. M.</div>
+            <div class="item" data-order="2" tabindex="0">(2019).</div>
+            <div class="item" data-order="3" tabindex="0"><em>The psychology of prejudice: From attitudes to social action</em></div>
+            <div class="item" data-order="4" tabindex="0">(2nd ed.).</div>
+            <div class="item" data-order="5" tabindex="0">American Psychological Association.</div>
+            <div class="item" data-order="6" tabindex="0">https://doi.org/10.1037/0000168-000</div>
         </div>
         <div id="final-card-2" class="final-reference-card">
             <div class="format-label" style="color: var(--success);">Correct APA Format:</div>
@@ -252,13 +256,13 @@
         <div id="status-3" class="status-msg"></div>
         <div id="comp-title-3" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-3">
-            <div class="item" data-order="1">Grady, J. S., Her, M., Moreno, G., Perez, C., & Yelinek, J.</div>
-            <div class="item" data-order="2">(2019).</div>
-            <div class="item" data-order="3">Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States.</div>
-            <div class="item" data-order="4"><em>Psychology of Popular Media Culture</em>,</div>
-            <div class="item" data-order="5"><em>8</em>(3),</div>
-            <div class="item" data-order="6">207–217.</div>
-            <div class="item" data-order="7">https://doi.org/10.1037/ppm0000185</div>
+            <div class="item" data-order="1" tabindex="0">Grady, J. S., Her, M., Moreno, G., Perez, C., & Yelinek, J.</div>
+            <div class="item" data-order="2" tabindex="0">(2019).</div>
+            <div class="item" data-order="3" tabindex="0">Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States.</div>
+            <div class="item" data-order="4" tabindex="0"><em>Psychology of Popular Media Culture</em>,</div>
+            <div class="item" data-order="5" tabindex="0"><em>8</em>(3),</div>
+            <div class="item" data-order="6" tabindex="0">207–217.</div>
+            <div class="item" data-order="7" tabindex="0">https://doi.org/10.1037/ppm0000185</div>
         </div>
         <div id="final-card-3" class="final-reference-card">
             <div class="format-label" style="color: var(--success);">Correct APA Format:</div>
@@ -287,13 +291,13 @@
         <div id="status-4" class="status-msg"></div>
         <div id="comp-title-4" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-4">
-            <div class="item" data-order="1">Leites, N.</div>
-            <div class="item" data-order="2">(2013).</div>
-            <div class="item" data-order="3">Transference interpretations only?</div>
-            <div class="item" data-order="4">In A. H. Esman (Ed.),</div>
-            <div class="item" data-order="5"><em>Essential papers on transference</em></div>
-            <div class="item" data-order="6">(pp. 434–454).</div>
-            <div class="item" data-order="7">New York University Press.</div>
+            <div class="item" data-order="1" tabindex="0">Leites, N.</div>
+            <div class="item" data-order="2" tabindex="0">(2013).</div>
+            <div class="item" data-order="3" tabindex="0">Transference interpretations only?</div>
+            <div class="item" data-order="4" tabindex="0">In A. H. Esman (Ed.),</div>
+            <div class="item" data-order="5" tabindex="0"><em>Essential papers on transference</em></div>
+            <div class="item" data-order="6" tabindex="0">(pp. 434–454).</div>
+            <div class="item" data-order="7" tabindex="0">New York University Press.</div>
         </div>
         <div id="final-card-4" class="final-reference-card">
             <div class="format-label" style="color: var(--success);">Correct APA Format:</div>
@@ -322,11 +326,11 @@
         <div id="status-5" class="status-msg"></div>
         <div id="comp-title-5" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-5">
-            <div class="item" data-order="1">Kompany, J. B.</div>
-            <div class="item" data-order="2">(2019, January 19).</div>
-            <div class="item" data-order="3"><em>Learn to code</em>.</div>
-            <div class="item" data-order="4">Medium.</div>
-            <div class="item" data-order="5">https://medium.com/lifeofcode/learn-to-code-53cd2864</div>
+            <div class="item" data-order="1" tabindex="0">Kompany, J. B.</div>
+            <div class="item" data-order="2" tabindex="0">(2019, January 19).</div>
+            <div class="item" data-order="3" tabindex="0"><em>Learn to code</em>.</div>
+            <div class="item" data-order="4" tabindex="0">Medium.</div>
+            <div class="item" data-order="5" tabindex="0">https://medium.com/lifeofcode/learn-to-code-53cd2864</div>
         </div>
         <div id="final-card-5" class="final-reference-card">
             <div class="format-label" style="color: var(--success);">Correct APA Format:</div>
@@ -395,6 +399,7 @@
 
     window.onload = () => { document.querySelectorAll('.source-zone').forEach(zone => shuffleZone(zone)); };
 
+    // Selection logic (Click and Keyboard)
     document.addEventListener('click', function(e) {
         const item = e.target.closest('.item');
         if (!item || item.classList.contains('correct')) return;
@@ -407,6 +412,16 @@
         if (item.parentNode === sourceZone) targetZone.appendChild(item);
         else sourceZone.appendChild(item);
         item.classList.remove('incorrect');
+    });
+
+    // Keydown listener for Accessibility (Enter/Space)
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            if (e.target.classList.contains('item')) { 
+                e.preventDefault(); 
+                e.target.click(); 
+            }
+        }
     });
 
     function validate(stepId, totalItems) {
@@ -424,10 +439,12 @@
             if (parseInt(item.dataset.order) === index + 1) {
                 item.classList.add('correct');
                 item.classList.remove('incorrect');
+                item.tabIndex = -1; // Locked
                 correctCount++;
             } else {
                 item.classList.add('incorrect');
                 item.classList.remove('correct');
+                item.tabIndex = 0;
             }
         });
 
@@ -483,6 +500,7 @@
 
         Array.from(targetZone.children).forEach(item => {
             item.classList.remove('correct', 'incorrect');
+            item.tabIndex = 0;
             sourceZone.appendChild(item);
         });
         
