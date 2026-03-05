@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APA 7th Referencing Activity</title>
+    <style>
+        :root {
+            --apa-blue: #2c3e50;
+            --highlight: #3498db;
+            --bg-light: #f4f7f6;
+            --success: #27ae60;
+            --error: #e74c3c;
+            --white: #ffffff;
+            --text: #2d3436;
+        }
+
+        * { box-sizing: border-box; }
+
+        body { 
+            font-family: 'Inter', -apple-system, sans-serif; 
+            line-height: 1.6; 
+            background-color: var(--bg-light); 
+            color: var(--text);
+            margin: 0; padding: 20px;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .container {
+            width: 100%; max-width: 900px;
+            background: var(--white);
+            padding: 40px; border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(44, 62, 80, 0.1);
+        }
+
+        h1 { color: var(--apa-blue); text-align: center; border-bottom: 2px solid var(--highlight); padding-bottom: 15px; }
+
+        .progress-container {
+            width: 100%; height: 8px; background: #e2e8f0;
+            border-radius: 10px; margin: 20px 0 40px; overflow: hidden;
+        }
+        #progress-fill { height: 100%; width: 20%; background: var(--highlight); transition: width 0.4s ease; }
+
+        .step-section { display: none; }
+        .step-section.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .interaction-guide {
+            background: #edf2f7;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+            color: var(--apa-blue);
+            border: 1px solid #cbd5e0;
+        }
+
+        .instruction-card {
+            background: #f8fafc; border-left: 4px solid var(--highlight);
+            padding: 15px 20px; margin-bottom: 30px; border-radius: 0 8px 8px 0;
+        }
+
+        .format-label { font-size: 0.85rem; text-transform: uppercase; color: #64748b; font-weight: bold; }
+
+        .zone-title { font-weight: 600; margin: 15px 0 10px; color: var(--apa-blue); }
+        
+        .drop-zone {
+            width: 100%; min-height: 100px;
+            border: 2px solid #e2e8f0; border-radius: 12px;
+            padding: 20px; display: flex; flex-wrap: wrap; gap: 8px;
+            background: #ffffff; transition: all 0.2s; align-content: flex-start;
+        }
+        .target { 
+            background-color: #fdfdfd; border: 2px solid var(--highlight); 
+            min-height: 140px;
+        }
+        .source-zone { background: #f1f5f9; border-style: dashed; }
+
+        .item {
+            padding: 8px 12px; background: var(--white);
+            border: 2px solid var(--apa-blue); color: var(--apa-blue);
+            border-radius: 6px; cursor: pointer; font-weight: 500;
+            display: flex; align-items: center; gap: 8px;
+            transition: all 0.2s; user-select: none; font-size: 0.95rem;
+        }
+        .item.correct { background: var(--success); border-color: var(--success); color: white; cursor: default; }
+        .item.incorrect { background: var(--error); border-color: var(--error); color: white; }
+
+        /* Final APA Formatting Style */
+        .final-reference-card {
+            display: none;
+            background: #fff; border: 2px solid var(--success);
+            padding: 25px; border-radius: 12px; margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .final-reference-card.visible { display: block; animation: slideUp 0.4s ease; }
+        
+        .apa-formatted {
+            padding-left: 36px; /* The indent size */
+            text-indent: -36px; /* Pulls first line back */
+            font-family: 'Times New Roman', Times, serif; /* Traditional APA font */
+            font-size: 1.1rem;
+            line-height: 2; /* Double spacing as per APA */
+            word-wrap: break-word;
+        }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .status-msg { margin: 15px 0; font-weight: 600; min-height: 24px; text-align: center; border-radius: 8px; padding: 10px; }
+        .status-msg.success { color: var(--success); background: #eef7ee; }
+        .status-msg.error { color: var(--error); background: #fceeee; }
+
+        .button-row { display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap; }
+        button { padding: 14px 28px; border-radius: 10px; font-weight: 600; cursor: pointer; border: none; font-size: 1rem; transition: opacity 0.2s; }
+        .btn-check { background: var(--apa-blue); color: white; flex-grow: 2; }
+        .btn-reset { background: #e2e8f0; color: #4a5568; flex-grow: 1; }
+        .btn-next { background: var(--highlight); color: white; display: none; width: 100%; margin-top: 10px; }
+        .btn-next.visible { display: inline-block; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>APA 7th Referencing</h1>
+    <div class="progress-container"><div id="progress-fill"></div></div>
+
+    <div id="step-1" class="step-section active">
+        <div class="interaction-guide">
+            <h3>Instructions</h3>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+        </div>
+        <h2>Book</h2>
+        <div class="instruction-card">
+            <span class="format-label">Format for book</span><br>
+            Author/s. (Copyright year). <em>Title</em> (Edition). Publisher.
+        </div>
+
+        <div class="zone-title">Reference:</div>
+        <div class="drop-zone target" id="target-1"></div>
+        <div id="status-1" class="status-msg"></div>
+        
+        <div id="comp-title-1" class="zone-title">Components:</div>
+        <div class="drop-zone source-zone" id="source-1">
+            <div class="item" data-order="1">Gross, R.</div>
+            <div class="item" data-order="2">(2020).</div>
+            <div class="item" data-order="3"><em>Psychology: The science of mind and behaviour</em></div>
+            <div class="item" data-order="4">(8th ed.).</div>
+            <div class="item" data-order="5">Hodder Education.</div>
+        </div>
+
+        <div id="final-card-1" class="final-reference-card">
+            <div class="format-label" style="margin-bottom:10px;">Correct APA Hanging Indent Format:</div>
+            <div class="apa-formatted" id="apa-text-1"></div>
+        </div>
+
+        <div class="button-row">
+            <button class="btn-check" id="check-1" onclick="validate(1, 5)">Check Answer</button>
+            <button class="btn-reset" onclick="resetStep(1)">Reset Task</button>
+            <button class="btn-next" id="next-1" onclick="moveStep(2)">Next Task →</button>
+        </div>
+    </div>
+
+    <div id="step-2" class="step-section">
+        <div class="interaction-guide">
+            <h3>Instructions</h3>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+        </div>
+        <h2>Online book</h2>
+        <div class="instruction-card">
+            <span class="format-label">Format for online book</span><br>
+            Author/s. (Copyright year). <em>Title</em> (Edition). Publisher. DOI or URL.
+        </div>
+
+        <div class="zone-title">Reference:</div>
+        <div class="drop-zone target" id="target-2"></div>
+        <div id="status-2" class="status-msg"></div>
+        
+        <div id="comp-title-2" class="zone-title">Components:</div>
+        <div class="drop-zone source-zone" id="source-2">
+            <div class="item" data-order="1">Jackson, L. M.</div>
+            <div class="item" data-order="2">(2019).</div>
+            <div class="item" data-order="3"><em>The psychology of prejudice: From attitudes to social action</em></div>
+            <div class="item" data-order="4">(2nd ed.).</div>
+            <div class="item" data-order="5">American Psychological Association.</div>
+            <div class="item" data-order="6">https://doi.org/10.1037/0000168-000</div>
+        </div>
+
+        <div id="final-card-2" class="final-reference-card">
+            <div class="format-label" style="margin-bottom:10px;">Correct APA Hanging Indent Format:</div>
+            <div class="apa-formatted" id="apa-text-2"></div>
+        </div>
+
+        <div class="button-row">
+            <button class="btn-check" id="check-2" onclick="validate(2, 6)">Check Answer</button>
+            <button class="btn-reset" onclick="resetStep(2)">Reset Task</button>
+            <button class="btn-next" id="next-2" onclick="moveStep(3)">Next Task →</button>
+        </div>
+    </div>
+
+    <div id="step-3" class="step-section">
+        <div class="interaction-guide">
+            <h3>Instructions</h3>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+        </div>
+        <h2>Journal article</h2>
+        <div class="instruction-card">
+            <span class="format-label">Format for journal article</span><br>
+            Author/s. (Year). Title. <em>Journal</em>, <em>Vol</em>(Issue), Pages. DOI/URL.
+        </div>
+
+        <div class="zone-title">Reference:</div>
+        <div class="drop-zone target" id="target-3"></div>
+        <div id="status-3" class="status-msg"></div>
+        
+        <div id="comp-title-3" class="zone-title">Components:</div>
+        <div class="drop-zone source-zone" id="source-3">
+            <div class="item" data-order="1">Grady, J. S., Her, M., Moreno, G., Perez, C., & Yelinek, J.</div>
+            <div class="item" data-order="2">(2019).</div>
+            <div class="item" data-order="3">Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States.</div>
+            <div class="item" data-order="4"><em>Psychology of Popular Media Culture</em>,</div>
+            <div class="item" data-order="5"><em>8</em>(3),</div>
+            <div class="item" data-order="6">207–217.</div>
+            <div class="item" data-order="7">https://doi.org/10.1037/ppm0000185</div>
+        </div>
+
+        <div id="final-card-3" class="final-reference-card">
+            <div class="format-label" style="margin-bottom:10px;">Correct APA Hanging Indent Format:</div>
+            <div class="apa-formatted" id="apa-text-3"></div>
+        </div>
+
+        <div class="button-row">
+            <button class="btn-check" id="check-3" onclick="validate(3, 7)">Check Answer</button>
+            <button class="btn-reset" onclick="resetStep(3)">Reset Task</button>
+            <button class="btn-next" id="next-3" onclick="moveStep(4)">Next Task →</button>
+        </div>
+    </div>
+
+    </div>
+
+<script>
+    function shuffleZone(zone) {
+        const items = Array.from(zone.children);
+        for (let i = items.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            zone.appendChild(items[j]);
+        }
+    }
+
+    window.onload = () => {
+        document.querySelectorAll('.source-zone').forEach(zone => shuffleZone(zone));
+    };
+
+    document.addEventListener('click', function(e) {
+        const item = e.target.closest('.item');
+        if (!item || item.classList.contains('correct')) return;
+        const stepId = item.closest('.step-section').id.split('-')[1];
+        const targetZone = document.getElementById(`target-${stepId}`);
+        const sourceZone = document.getElementById(`source-${stepId}`);
+        if (item.parentNode === sourceZone) targetZone.appendChild(item);
+        else sourceZone.appendChild(item);
+        item.classList.remove('incorrect');
+    });
+
+    function validate(stepId, totalItems) {
+        const targetZone = document.getElementById(`target-${stepId}`);
+        const sourceZone = document.getElementById(`source-${stepId}`);
+        const statusMsg = document.getElementById(`status-${stepId}`);
+        const finalCard = document.getElementById(`final-card-${stepId}`);
+        const apaText = document.getElementById(`apa-text-${stepId}`);
+        const nextBtn = document.getElementById(`next-${stepId}`);
+        const items = Array.from(targetZone.children);
+        
+        let correctCount = 0;
+        items.forEach((item, index) => {
+            if (parseInt(item.dataset.order) === index + 1) {
+                item.classList.add('correct');
+                correctCount++;
+            } else {
+                item.classList.add('incorrect');
+            }
+        });
+
+        if (correctCount === totalItems) {
+            statusMsg.innerHTML = "Excellent! ✓ All parts are correctly formatted.";
+            statusMsg.className = "status-msg success";
+            
+            // Generate the final text string with italics preserved
+            const fullRef = items.map(i => i.innerHTML).join(' ');
+            apaText.innerHTML = fullRef;
+            
+            // Swap views
+            sourceZone.style.display = 'none';
+            document.getElementById(`comp-title-${stepId}`).style.display = 'none';
+            finalCard.classList.add('visible');
+            nextBtn.classList.add('visible');
+        } else {
+            statusMsg.innerHTML = `Order incorrect: ${correctCount} of ${totalItems} correct.`;
+            statusMsg.className = "status-msg error";
+        }
+    }
+
+    function resetStep(stepId) {
+        location.reload(); // Simple reset for this complex view swap
+    }
+
+    function moveStep(nextId) {
+        document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
+        document.getElementById(`step-${nextId}`).classList.add('active');
+        document.getElementById('progress-fill').style.width = (nextId * 20) + '%';
+    }
+</script>
+</body>
+</html>
