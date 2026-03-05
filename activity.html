@@ -6,13 +6,34 @@
     <title>APA 7th Referencing Activity</title>
     <style>
         :root {
+            /* Light Mode Variables */
             --apa-blue: #2c3e50;
             --highlight: #3498db;
             --bg-light: #f4f7f6;
+            --card-bg: #ffffff;
             --success: #27ae60;
             --error: #e74c3c;
-            --white: #ffffff;
-            --text: #2d3436;
+            --text-main: #2d3436;
+            --instruction-bg: #edf2f7;
+            --zone-bg: #f1f5f9;
+            --border: #e2e8f0;
+            --item-text: #2c3e50;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --apa-blue: #82b1ff;
+                --highlight: #3498db;
+                --bg-light: #121212;
+                --card-bg: #1e1e1e;
+                --success: #2ecc71;
+                --error: #ff7675;
+                --text-main: #e0e0e0;
+                --instruction-bg: #2d3436;
+                --zone-bg: #2d3436;
+                --border: #444;
+                --item-text: #e0e0e0;
+            }
         }
 
         * { box-sizing: border-box; }
@@ -21,22 +42,23 @@
             font-family: 'Inter', -apple-system, sans-serif; 
             line-height: 1.6; 
             background-color: var(--bg-light); 
-            color: var(--text);
+            color: var(--text-main);
             margin: 0; padding: 20px;
             display: flex; flex-direction: column; align-items: center;
+            transition: all 0.3s ease;
         }
 
         .container {
             width: 100%; max-width: 900px;
-            background: var(--white);
+            background: var(--card-bg);
             padding: 40px; border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(44, 62, 80, 0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
         h1 { color: var(--apa-blue); text-align: center; border-bottom: 2px solid var(--highlight); padding-bottom: 15px; }
 
         .progress-container {
-            width: 100%; height: 8px; background: #e2e8f0;
+            width: 100%; height: 8px; background: var(--border);
             border-radius: 10px; margin: 20px 0 40px; overflow: hidden;
         }
         #progress-fill { height: 100%; width: 20%; background: var(--highlight); transition: width 0.4s ease; }
@@ -46,81 +68,68 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .interaction-guide {
-            background: #edf2f7;
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            font-size: 0.95rem;
-            color: var(--apa-blue);
-            border: 1px solid #cbd5e0;
-        }
-        .interaction-guide h3 { 
-            margin-top: 0; 
-            margin-bottom: 10px; 
-            font-size: 1.1rem; 
-            font-weight: 600; 
+            background: var(--instruction-bg);
+            padding: 15px 20px; border-radius: 8px;
+            margin-bottom: 30px; font-size: 0.95rem;
+            color: var(--text-main); border: 1px solid var(--border);
         }
 
         .instruction-card {
-            background: #f8fafc; border-left: 4px solid var(--highlight);
+            background: var(--zone-bg); border-left: 4px solid var(--highlight);
             padding: 15px 20px; margin-bottom: 30px; border-radius: 0 8px 8px 0;
         }
 
-        .format-label { font-size: 0.85rem; text-transform: uppercase; color: #64748b; font-weight: bold; }
+        .format-label { font-size: 0.85rem; text-transform: uppercase; color: var(--apa-blue); font-weight: bold; }
 
         .zone-title { font-weight: 600; margin: 15px 0 10px; color: var(--apa-blue); }
         
         .drop-zone {
-            width: 100%;
-            min-height: 100px;
-            border: 2px solid #e2e8f0; border-radius: 12px;
-            padding: 20px; display: flex; flex-wrap: wrap; gap: 10px;
-            background: #ffffff; transition: all 0.2s; align-content: flex-start;
+            width: 100%; min-height: 100px;
+            border: 2px solid var(--border); border-radius: 12px;
+            padding: 20px; display: flex; flex-wrap: wrap; gap: 8px;
+            background: var(--card-bg); transition: all 0.2s; align-content: flex-start;
         }
-        .target { 
-            background-color: #fdfdfd; 
-            border: 2px solid var(--highlight); 
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
-            min-height: 140px;
-        }
-        .source-zone { background: #f1f5f9; border-style: dashed; }
+        .target { border: 2px solid var(--highlight); min-height: 140px; }
+        .source-zone { background: var(--zone-bg); border-style: dashed; }
 
         .item {
-            padding: 10px 15px; background: var(--white);
-            border: 2px solid var(--apa-blue); color: var(--apa-blue);
+            padding: 8px 12px; background: var(--card-bg);
+            border: 2px solid var(--apa-blue); color: var(--item-text);
             border-radius: 6px; cursor: pointer; font-weight: 500;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             display: flex; align-items: center; gap: 8px;
-            transition: all 0.2s; user-select: none;
-            font-size: 0.95rem;
-            outline: none;
+            transition: all 0.2s; user-select: none; font-size: 0.95rem;
         }
-        .item:focus { border-color: var(--highlight); box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3); }
-        .item:hover { background: #f0f9ff; transform: translateY(-1px); }
-
-        .feedback-icon { font-weight: bold; font-size: 1.1rem; display: none; }
-        .item.correct .feedback-icon.tick { display: inline; color: #fff; }
-        .item.incorrect .feedback-icon.cross { display: inline; color: #fff; }
-
-        .item.correct { background: var(--success); border-color: var(--success); color: white; cursor: default; transform: none; }
+        .item.correct { background: var(--success); border-color: var(--success); color: white; cursor: default; }
         .item.incorrect { background: var(--error); border-color: var(--error); color: white; }
 
-        .status-msg { margin: 15px 0; font-weight: 600; min-height: 24px; text-align: center; border-radius: 8px; padding: 5px; }
-        .status-msg.success { color: var(--success); background: #eef7ee; }
-        .status-msg.error { color: var(--error); background: #fceeee; }
+        .final-reference-card {
+            display: none; background: var(--card-bg); border: 2px solid var(--success);
+            padding: 25px; border-radius: 12px; margin-top: 20px;
+        }
+        .final-reference-card.visible { display: block; animation: slideUp 0.4s ease; }
+        
+        .apa-formatted {
+            padding-left: 36px; text-indent: -36px; 
+            font-family: 'Times New Roman', Times, serif; 
+            font-size: 1.2rem; line-height: 2; 
+            word-wrap: break-word; color: var(--text-main);
+            margin-top: 10px;
+        }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .status-msg { margin: 15px 0; font-weight: 600; min-height: 24px; text-align: center; border-radius: 8px; padding: 10px; }
+        .status-msg.success { color: #fff; background: var(--success); }
+        .status-msg.error { color: #fff; background: var(--error); }
 
         .button-row { display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap; }
         button { padding: 14px 28px; border-radius: 10px; font-weight: 600; cursor: pointer; border: none; font-size: 1rem; }
-        .btn-check { background: var(--apa-blue); color: white; flex-grow: 2; }
-        .btn-reset { background: #e2e8f0; color: #4a5568; flex-grow: 1; }
+        .btn-check { background: var(--apa-blue); color: #fff; flex-grow: 2; }
+        .btn-reset { background: var(--border); color: var(--text-main); flex-grow: 1; }
         .btn-next { background: var(--highlight); color: white; display: none; width: 100%; margin-top: 10px; }
         .btn-next.visible { display: inline-block; }
 
-        @media (max-width: 600px) {
-            .container { padding: 20px; }
-            .item { font-size: 0.85rem; padding: 8px 12px; }
-            .button-row { flex-direction: column; }
-        }
+        @media (max-width: 600px) { .container { padding: 20px; } .button-row { flex-direction: column; } }
     </style>
 </head>
 <body>
@@ -137,22 +146,25 @@
         <h2>Book</h2>
         <div class="instruction-card">
             <span class="format-label">Format for book</span><br>
-            Author/s. (Copyright year). <em>Title</em> (Edition if 2nd or later.). Publisher.
+            Author/s. (Copyright year). <em>Title</em> (Edition). Publisher.
         </div>
-        <div class="zone-title">Reference (put the components of the reference here):</div>
+        <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-1"></div>
         <div id="status-1" class="status-msg"></div>
-        
-        <div class="zone-title">Components:</div>
+        <div id="comp-title-1" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-1">
-            <div class="item" id="b1" tabindex="0" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Gross, R.</div>
-            <div class="item" id="b2" tabindex="0" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>(2020).</div>
-            <div class="item" id="b3" tabindex="0" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><em>Psychology: The science of mind and behaviour</em></div>
-            <div class="item" id="b4" tabindex="0" data-order="4"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>(8th ed.).</div>
-            <div class="item" id="b5" tabindex="0" data-order="5"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Hodder Education.</div>
+            <div class="item" data-order="1">Gross, R.</div>
+            <div class="item" data-order="2">(2020).</div>
+            <div class="item" data-order="3"><em>Psychology: The science of mind and behaviour</em></div>
+            <div class="item" data-order="4">(8th ed.).</div>
+            <div class="item" data-order="5">Hodder Education.</div>
+        </div>
+        <div id="final-card-1" class="final-reference-card">
+            <div class="format-label" style="color: var(--success);">Correct APA Format:</div>
+            <div class="apa-formatted" id="apa-text-1"></div>
         </div>
         <div class="button-row">
-            <button class="btn-check" onclick="validate(1, 5)">Check Answer</button>
+            <button class="btn-check" id="check-1" onclick="validate(1, 5)">Check Answer</button>
             <button class="btn-reset" onclick="resetStep(1)">Reset Task</button>
             <button class="btn-next" id="next-1" onclick="moveStep(2)">Next Task →</button>
         </div>
@@ -166,22 +178,26 @@
         <h2>Online book</h2>
         <div class="instruction-card">
             <span class="format-label">Format for online book</span><br>
-            Author/s. (Copyright year). <em>Title</em> (Edition if 2nd or later.). Publisher. DOI or URL.
+            Author/s. (Copyright year). <em>Title</em> (Edition). Publisher. DOI or URL.
         </div>
-        <div class="zone-title">Reference (put the components of the reference here):</div>
+        <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-2"></div>
         <div id="status-2" class="status-msg"></div>
-        <div class="zone-title">Components:</div>
+        <div id="comp-title-2" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-2">
-            <div class="item" id="ob1" tabindex="0" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Jackson, L. M.</div>
-            <div class="item" id="ob2" tabindex="0" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>(2019).</div>
-            <div class="item" id="ob3" tabindex="0" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><em>The psychology of prejudice: From attitudes to social action</em></div>
-            <div class="item" id="ob4" tabindex="0" data-order="4"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>(2nd ed.).</div>
-            <div class="item" id="ob5" tabindex="0" data-order="5"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>American Psychological Association.</div>
-            <div class="item" id="ob6" tabindex="0" data-order="6"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>https://doi.org/10.1037/0000168-000</div>
+            <div class="item" data-order="1">Jackson, L. M.</div>
+            <div class="item" data-order="2">(2019).</div>
+            <div class="item" data-order="3"><em>The psychology of prejudice: From attitudes to social action</em></div>
+            <div class="item" data-order="4">(2nd ed.).</div>
+            <div class="item" data-order="5">American Psychological Association.</div>
+            <div class="item" data-order="6">https://doi.org/10.1037/0000168-000</div>
+        </div>
+        <div id="final-card-2" class="final-reference-card">
+            <div class="format-label" style="color: var(--success);">Correct APA Format:</div>
+            <div class="apa-formatted" id="apa-text-2"></div>
         </div>
         <div class="button-row">
-            <button class="btn-check" onclick="validate(2, 6)">Check Answer</button>
+            <button class="btn-check" id="check-2" onclick="validate(2, 6)">Check Answer</button>
             <button class="btn-reset" onclick="resetStep(2)">Reset Task</button>
             <button class="btn-next" id="next-2" onclick="moveStep(3)">Next Task →</button>
         </div>
@@ -195,23 +211,27 @@
         <h2>Journal article</h2>
         <div class="instruction-card">
             <span class="format-label">Format for journal article</span><br>
-            Author/s. (Year). Title of article. <em>Title of journal</em>, <em>Volume</em>(Issue), Page range. DOI or URL.
+            Author/s. (Year). Title. <em>Journal</em>, <em>Vol</em>(Issue), Pages. DOI/URL.
         </div>
-        <div class="zone-title">Reference (put the components of the reference here):</div>
+        <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-3"></div>
         <div id="status-3" class="status-msg"></div>
-        <div class="zone-title">Components:</div>
+        <div id="comp-title-3" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-3">
-            <div class="item" id="j1" tabindex="0" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Grady, J. S., Her, M., Moreno, G., Perez, C., & Yelinek, J.</div>
-            <div class="item" id="j2" tabindex="0" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>(2019).</div>
-            <div class="item" id="j3" tabindex="0" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States.</div>
-            <div class="item" id="j4" tabindex="0" data-order="4"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><em>Psychology of Popular Media Culture</em>,</div>
-            <div class="item" id="j5" tabindex="0" data-order="5"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><em>8</em>(3),</div>
-            <div class="item" id="j6" tabindex="0" data-order="6"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>207–217.</div>
-            <div class="item" id="j7" tabindex="0" data-order="7"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>https://doi.org/10.1037/ppm0000185</div>
+            <div class="item" data-order="1">Grady, J. S., Her, M., Moreno, G., Perez, C., & Yelinek, J.</div>
+            <div class="item" data-order="2">(2019).</div>
+            <div class="item" data-order="3">Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States.</div>
+            <div class="item" data-order="4"><em>Psychology of Popular Media Culture</em>,</div>
+            <div class="item" data-order="5"><em>8</em>(3),</div>
+            <div class="item" data-order="6">207–217.</div>
+            <div class="item" data-order="7">https://doi.org/10.1037/ppm0000185</div>
+        </div>
+        <div id="final-card-3" class="final-reference-card">
+            <div class="format-label" style="color: var(--success);">Correct APA Format:</div>
+            <div class="apa-formatted" id="apa-text-3"></div>
         </div>
         <div class="button-row">
-            <button class="btn-check" onclick="validate(3, 7)">Check Answer</button>
+            <button class="btn-check" id="check-3" onclick="validate(3, 7)">Check Answer</button>
             <button class="btn-reset" onclick="resetStep(3)">Reset Task</button>
             <button class="btn-next" id="next-3" onclick="moveStep(4)">Next Task →</button>
         </div>
@@ -225,23 +245,27 @@
         <h2>Book chapter</h2>
         <div class="instruction-card">
             <span class="format-label">Format for book chapter</span><br>
-            Author/s. (Year). Title of chapter In Editor (Ed.), <em>Title</em> (pp. page numbers). Publisher. DOI or URL.
+            Author/s. (Year). Title In Editor (Ed.), <em>Title</em> (pp. pages). Publisher.
         </div>
-        <div class="zone-title">Reference (put the components of the reference here):</div>
+        <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-4"></div>
         <div id="status-4" class="status-msg"></div>
-        <div class="zone-title">Components:</div>
+        <div id="comp-title-4" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-4">
-            <div class="item" id="bc1" tabindex="0" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Leites, N.</div>
-            <div class="item" id="bc2" tabindex="0" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>(2013).</div>
-            <div class="item" id="bc3" tabindex="0" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Transference interpretations only?</div>
-            <div class="item" id="bc4" tabindex="0" data-order="4"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>In A. H. Esman (Ed.),</div>
-            <div class="item" id="bc5" tabindex="0" data-order="5"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><em>Essential papers on transference</em></div>
-            <div class="item" id="bc6" tabindex="0" data-order="6"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>(pp. 434–454).</div>
-            <div class="item" id="bc7" tabindex="0" data-order="7"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>New York University Press.</div>
+            <div class="item" data-order="1">Leites, N.</div>
+            <div class="item" data-order="2">(2013).</div>
+            <div class="item" data-order="3">Transference interpretations only?</div>
+            <div class="item" data-order="4">In A. H. Esman (Ed.),</div>
+            <div class="item" data-order="5"><em>Essential papers on transference</em></div>
+            <div class="item" data-order="6">(pp. 434–454).</div>
+            <div class="item" data-order="7">New York University Press.</div>
+        </div>
+        <div id="final-card-4" class="final-reference-card">
+            <div class="format-label" style="color: var(--success);">Correct APA Format:</div>
+            <div class="apa-formatted" id="apa-text-4"></div>
         </div>
         <div class="button-row">
-            <button class="btn-check" onclick="validate(4, 7)">Check Answer</button>
+            <button class="btn-check" id="check-4" onclick="validate(4, 7)">Check Answer</button>
             <button class="btn-reset" onclick="resetStep(4)">Reset Task</button>
             <button class="btn-next" id="next-4" onclick="moveStep(5)">Next Task →</button>
         </div>
@@ -255,23 +279,27 @@
         <h2>Webpage</h2>
         <div class="instruction-card">
             <span class="format-label">Format for webpage</span><br>
-            Author/s. (Date published/updated). <em>Title</em>. Website name. DOI or URL.
+            Author/s. (Date). <em>Title</em>. Website name. URL.
         </div>
-        <div class="zone-title">Reference (put the components of the reference here):</div>
+        <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-5"></div>
         <div id="status-5" class="status-msg"></div>
-        <div class="zone-title">Components:</div>
+        <div id="comp-title-5" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-5">
-            <div class="item" id="w1" tabindex="0" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Kompany, J. B.</div>
-            <div class="item" id="w2" tabindex="0" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>(2019, January 19).</div>
-            <div class="item" id="w3" tabindex="0" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><em>Learn to code</em>.</div>
-            <div class="item" id="w4" tabindex="0" data-order="4"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Medium.</div>
-            <div class="item" id="w5" tabindex="0" data-order="5"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>https://medium.com/lifeofcode/learn-to-code-53cd2864</div>
+            <div class="item" data-order="1">Kompany, J. B.</div>
+            <div class="item" data-order="2">(2019, January 19).</div>
+            <div class="item" data-order="3"><em>Learn to code</em>.</div>
+            <div class="item" data-order="4">Medium.</div>
+            <div class="item" data-order="5">https://medium.com/lifeofcode/learn-to-code-53cd2864</div>
+        </div>
+        <div id="final-card-5" class="final-reference-card">
+            <div class="format-label" style="color: var(--success);">Correct APA Format:</div>
+            <div class="apa-formatted" id="apa-text-5"></div>
         </div>
         <div class="button-row">
-            <button class="btn-check" onclick="validate(5, 5)">Check Answer</button>
+            <button class="btn-check" id="check-5" onclick="validate(5, 5)">Check Answer</button>
             <button class="btn-reset" onclick="resetStep(5)">Reset Task</button>
-            </div>
+        </div>
     </div>
 </div>
 
@@ -284,72 +312,34 @@
         }
     }
 
-    window.onload = () => {
-        document.querySelectorAll('.source-zone').forEach(zone => shuffleZone(zone));
-    };
+    window.onload = () => { document.querySelectorAll('.source-zone').forEach(zone => shuffleZone(zone)); };
 
     document.addEventListener('click', function(e) {
         const item = e.target.closest('.item');
         if (!item || item.classList.contains('correct')) return;
-
-        const currentStep = item.closest('.step-section');
-        const stepId = currentStep.id.split('-')[1];
+        const stepId = item.closest('.step-section').id.split('-')[1];
         const targetZone = document.getElementById(`target-${stepId}`);
         const sourceZone = document.getElementById(`source-${stepId}`);
-
-        if (item.parentNode === sourceZone) {
-            targetZone.appendChild(item);
-        } else {
-            sourceZone.appendChild(item);
-        }
+        if (item.parentNode === sourceZone) targetZone.appendChild(item);
+        else sourceZone.appendChild(item);
         item.classList.remove('incorrect');
     });
 
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-            if (e.target.classList.contains('item')) {
-                e.preventDefault();
-                e.target.click();
-            }
-        }
-    });
-
-    function resetStep(stepId) {
+    function validate(stepId, totalItems) {
         const targetZone = document.getElementById(`target-${stepId}`);
         const sourceZone = document.getElementById(`source-${stepId}`);
         const statusMsg = document.getElementById(`status-${stepId}`);
+        const finalCard = document.getElementById(`final-card-${stepId}`);
+        const apaText = document.getElementById(`apa-text-${stepId}`);
         const nextBtn = document.getElementById(`next-${stepId}`);
+        const checkBtn = document.getElementById(`check-${stepId}`);
+        const items = Array.from(targetZone.children);
         
-        const items = Array.from(targetZone.children);
-        items.forEach(item => {
-            item.classList.remove('correct', 'incorrect');
-            item.tabIndex = 0;
-            sourceZone.appendChild(item);
-        });
-
-        Array.from(sourceZone.children).forEach(item => {
-            item.classList.remove('correct', 'incorrect');
-            item.tabIndex = 0;
-        });
-
-        shuffleZone(sourceZone);
-        statusMsg.innerHTML = "";
-        statusMsg.className = "status-msg";
-        if (nextBtn) nextBtn.classList.remove('visible');
-    }
-
-    function validate(stepId, totalItems) {
-        const targetZone = document.getElementById(`target-${stepId}`);
-        const statusMsg = document.getElementById(`status-${stepId}`);
-        const nextBtn = document.getElementById(`next-${stepId}`);
-        const items = Array.from(targetZone.children);
         let correctCount = 0;
-
         items.forEach((item, index) => {
             if (parseInt(item.dataset.order) === index + 1) {
                 item.classList.add('correct');
                 item.classList.remove('incorrect');
-                item.tabIndex = -1;
                 correctCount++;
             } else {
                 item.classList.add('incorrect');
@@ -357,21 +347,29 @@
             }
         });
 
-        if (items.length === 0) {
-            statusMsg.innerHTML = "Place the components in the box above first!";
+        if (items.length < totalItems) {
+            statusMsg.innerHTML = "Place all components in the box first!";
             statusMsg.className = "status-msg error";
-        } else if (items.length < totalItems) {
-            statusMsg.innerHTML = `You've placed ${items.length} of ${totalItems} components.`;
-            statusMsg.className = "status-msg error";
-        } else if (correctCount === totalItems) {
-            statusMsg.innerHTML = "Excellent! ✓ All parts are correctly formatted and placed.";
+            return;
+        }
+
+        if (correctCount === totalItems) {
+            statusMsg.innerHTML = "Excellent! ✓ All parts are correctly formatted.";
             statusMsg.className = "status-msg success";
-            if (nextBtn) nextBtn.classList.add('visible');
+            const fullRef = items.map(i => i.innerHTML).join(' ');
+            apaText.innerHTML = fullRef;
+            sourceZone.style.display = 'none';
+            document.getElementById(`comp-title-${stepId}`).style.display = 'none';
+            finalCard.classList.add('visible');
+            if(nextBtn) nextBtn.classList.add('visible');
+            checkBtn.style.display = 'none';
         } else {
-            statusMsg.innerHTML = `Order incorrect: ${correctCount} of ${totalItems} parts correct. ✗ Try reordering the items.`;
+            statusMsg.innerHTML = `Order incorrect: ${correctCount} of ${totalItems} correct.`;
             statusMsg.className = "status-msg error";
         }
     }
+
+    function resetStep(stepId) { location.reload(); }
 
     function moveStep(nextId) {
         document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
