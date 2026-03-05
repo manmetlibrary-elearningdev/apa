@@ -63,7 +63,9 @@
             padding: 20px; background: var(--zone-bg); border: 2px solid var(--border); 
             border-radius: 12px; cursor: pointer; display: flex; justify-content: space-between; 
             align-items: center; transition: all 0.2s; font-weight: 600; color: var(--apa-blue);
+            outline: none;
         }
+        .menu-item:focus { border-color: var(--highlight); box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4); }
         .menu-item:hover { border-color: var(--highlight); transform: translateX(5px); }
         .menu-item .badge { font-size: 0.8rem; padding: 4px 10px; border-radius: 20px; background: var(--border); color: var(--text-main); }
         .menu-item.done { border-color: var(--success); }
@@ -113,7 +115,7 @@
             transition: all 0.2s; user-select: none; font-size: 0.95rem;
             outline: none;
         }
-        /* KEY FIX: Keyboard selection styling */
+        /* KEY ACCESSIBILITY FIX: visible ring */
         .item:focus { border-color: var(--highlight); box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4); background: var(--instruction-bg); }
 
         .item.correct { background: var(--success); border-color: var(--success); color: white; cursor: default; }
@@ -141,6 +143,7 @@
 
         .button-row { display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap; }
         button { padding: 14px 28px; border-radius: 10px; font-weight: 600; cursor: pointer; border: none; font-size: 1rem; }
+        button:focus { outline: 3px solid var(--highlight); outline-offset: 2px; }
         .btn-check { background: var(--apa-blue); color: #fff; flex-grow: 2; }
         .btn-reset { background: var(--border); color: var(--text-main); flex-grow: 1; }
         .btn-next { background: var(--highlight); color: white; display: none; width: 100%; margin-top: 10px; }
@@ -157,16 +160,17 @@
     <div class="progress-container"><div id="progress-fill"></div></div>
 
     <div id="step-0" class="step-section active">
+        <h2 id="heading-0" tabindex="-1" style="outline:none;">Dashboard</h2>
         <div class="interaction-guide">
             <h3>Choose type of reference</h3>
             <span class="instruction-text">Select a source type below to practice APA 7th formatting. Complete all 5 tasks to view the full summary.</span>
         </div>
         <div class="menu-grid">
-            <div class="menu-item" id="menu-1" onclick="moveStep(1)">1. Book <span class="badge" id="badge-1">Not Started</span></div>
-            <div class="menu-item" id="menu-2" onclick="moveStep(2)">2. Online book <span class="badge" id="badge-2">Not Started</span></div>
-            <div class="menu-item" id="menu-3" onclick="moveStep(3)">3. Journal article <span class="badge" id="badge-3">Not Started</span></div>
-            <div class="menu-item" id="menu-4" onclick="moveStep(4)">4. Book chapter <span class="badge" id="badge-4">Not Started</span></div>
-            <div class="menu-item" id="menu-5" onclick="moveStep(5)">5. Webpage <span class="badge" id="badge-5">Not Started</span></div>
+            <div class="menu-item" id="menu-1" onclick="moveStep(1)" tabindex="0" role="button">1. Book <span class="badge" id="badge-1">Not Started</span></div>
+            <div class="menu-item" id="menu-2" onclick="moveStep(2)" tabindex="0" role="button">2. Online book <span class="badge" id="badge-2">Not Started</span></div>
+            <div class="menu-item" id="menu-3" onclick="moveStep(3)" tabindex="0" role="button">3. Journal article <span class="badge" id="badge-3">Not Started</span></div>
+            <div class="menu-item" id="menu-4" onclick="moveStep(4)" tabindex="0" role="button">4. Book chapter <span class="badge" id="badge-4">Not Started</span></div>
+            <div class="menu-item" id="menu-5" onclick="moveStep(5)" tabindex="0" role="button">5. Webpage <span class="badge" id="badge-5">Not Started</span></div>
         </div>
         <div class="button-row">
             <button class="btn-check" style="width: 100%;" onclick="moveStep(6)">Jump to Final Summary →</button>
@@ -174,12 +178,12 @@
     </div>
 
     <div id="step-1" class="step-section">
-        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" id="back-1" onclick="moveStep(0)">← Back to Menu</button>
+        <h2 id="heading-1" tabindex="-1" style="outline:none;">Book</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+            <span class="instruction-text">Put the components of the reference into the correct order. Use <strong>Tab</strong> to navigate and <strong>Enter/Space</strong> to move items.</span>
         </div>
-        <h2>Book</h2>
         <div class="instruction-card">
             <span class="format-label">Format for book</span><br>
             Author/s. (Copyright year). <em>Title</em> (Edition). Publisher.
@@ -207,12 +211,12 @@
     </div>
 
     <div id="step-2" class="step-section">
-        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" id="back-2" onclick="moveStep(0)">← Back to Menu</button>
+        <h2 id="heading-2" tabindex="-1" style="outline:none;">Online book</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+            <span class="instruction-text">Put the components into the correct order. Use <strong>Tab</strong> to navigate and <strong>Enter/Space</strong> to move items.</span>
         </div>
-        <h2>Online book</h2>
         <div class="instruction-card">
             <span class="format-label">Format for online book</span><br>
             Author/s. (Copyright year). <em>Title</em> (Edition). Publisher. DOI or URL.
@@ -241,12 +245,12 @@
     </div>
 
     <div id="step-3" class="step-section">
-        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" id="back-3" onclick="moveStep(0)">← Back to Menu</button>
+        <h2 id="heading-3" tabindex="-1" style="outline:none;">Journal article</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+            <span class="instruction-text">Put the components into the correct order. Use <strong>Tab</strong> to navigate and <strong>Enter/Space</strong> to move items.</span>
         </div>
-        <h2>Journal article</h2>
         <div class="instruction-card">
             <span class="format-label">Format for journal article</span><br>
             Author/s. (Year). Title. <em>Journal</em>, <em>Vol</em>(Issue), Pages. DOI/URL.
@@ -276,12 +280,12 @@
     </div>
 
     <div id="step-4" class="step-section">
-        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" id="back-4" onclick="moveStep(0)">← Back to Menu</button>
+        <h2 id="heading-4" tabindex="-1" style="outline:none;">Book chapter</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+            <span class="instruction-text">Put the components into the correct order. Use <strong>Tab</strong> to navigate and <strong>Enter/Space</strong> to move items.</span>
         </div>
-        <h2>Book chapter</h2>
         <div class="instruction-card">
             <span class="format-label">Format for book chapter</span><br>
             Author/s. (Year). Title In Editor (Ed.), <em>Title</em> (pp. pages). Publisher.
@@ -311,12 +315,12 @@
     </div>
 
     <div id="step-5" class="step-section">
-        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" id="back-5" onclick="moveStep(0)">← Back to Menu</button>
+        <h2 id="heading-5" tabindex="-1" style="outline:none;">Webpage</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+            <span class="instruction-text">Put the components into the correct order. Use <strong>Tab</strong> to navigate and <strong>Enter/Space</strong> to move items.</span>
         </div>
-        <h2>Webpage</h2>
         <div class="instruction-card">
             <span class="format-label">Format for webpage</span><br>
             Author/s. (Date). <em>Title</em>. Website name. URL.
@@ -339,15 +343,16 @@
         <div class="button-row">
             <button class="btn-check" id="check-5" onclick="validate(5, 5)">Check Answer</button>
             <button class="btn-reset" onclick="resetTask(5)">Reset Task</button>
+            <button class="btn-next" id="next-5" onclick="moveStep(6)">Finish & Review Summary →</button>
         </div>
     </div>
 
     <div id="step-6" class="step-section">
-        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
-        <h2>APA 7th Referencing Summary</h2>
+        <button class="btn-menu" id="back-6" onclick="moveStep(0)">← Back to Menu</button>
+        <h2 id="heading-6" tabindex="-1" style="outline:none;">APA 7th Referencing Summary</h2>
         <div class="interaction-guide">
             <h3>Format Cheat Sheet</h3>
-            <span class="instruction-text">Review the common APA 7th formats and examples encountered in this activity. Note the hanging indents in the final examples.</span>
+            <span class="instruction-text">Review the common APA 7th formats and examples encountered in this activity. Note the hanging indents below.</span>
         </div>
 
         <div class="instruction-card">
@@ -399,39 +404,51 @@
 
     window.onload = () => { document.querySelectorAll('.source-zone').forEach(zone => shuffleZone(zone)); };
 
-    // Selection logic (Click and Keyboard)
-    document.addEventListener('click', function(e) {
-        const item = e.target.closest('.item');
+    // SHARED MOVEMENT LOGIC
+    function handleItemMove(item) {
         if (!item || item.classList.contains('correct')) return;
         const stepSection = item.closest('.step-section');
-        if (!stepSection) return;
         const stepId = stepSection.id.split('-')[1];
         const targetZone = document.getElementById(`target-${stepId}`);
         const sourceZone = document.getElementById(`source-${stepId}`);
-        if (!targetZone || !sourceZone) return;
+        
         if (item.parentNode === sourceZone) targetZone.appendChild(item);
         else sourceZone.appendChild(item);
+        
         item.classList.remove('incorrect');
+        
+        // FOCUS RETENTION: Keep focus on the item after it moves
+        setTimeout(() => item.focus(), 10);
+    }
+
+    document.addEventListener('click', e => {
+        const item = e.target.closest('.item');
+        if (item) handleItemMove(item);
     });
 
-    // Keydown listener for Accessibility (Enter/Space)
-    document.addEventListener('keydown', function(e) {
+    // Keydown listener for Accessibility
+    document.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') {
             if (e.target.classList.contains('item')) { 
                 e.preventDefault(); 
-                e.target.click(); 
+                handleItemMove(e.target); 
+            }
+            if (e.target.classList.contains('menu-item')) {
+                e.preventDefault();
+                e.target.click();
             }
         }
     });
 
     function validate(stepId, totalItems) {
         const targetZone = document.getElementById(`target-${stepId}`);
-        const sourceZone = document.getElementById(`source-${stepId}`);
         const statusMsg = document.getElementById(`status-${stepId}`);
         const finalCard = document.getElementById(`final-card-${stepId}`);
         const apaText = document.getElementById(`apa-text-${stepId}`);
         const nextBtn = document.getElementById(`next-${stepId}`);
         const checkBtn = document.getElementById(`check-${stepId}`);
+        const sourceZone = document.getElementById(`source-${stepId}`);
+        const compTitle = document.getElementById(`comp-title-${stepId}`);
         const items = Array.from(targetZone.children);
         
         let correctCount = 0;
@@ -460,12 +477,14 @@
             const fullRef = items.map(i => i.innerHTML).join(' ');
             apaText.innerHTML = fullRef;
             sourceZone.style.display = 'none';
-            document.getElementById(`comp-title-${stepId}`).style.display = 'none';
+            compTitle.style.display = 'none';
             finalCard.classList.add('visible');
-            if(nextBtn) nextBtn.classList.add('visible');
+            if(nextBtn) {
+                nextBtn.classList.add('visible');
+                nextBtn.focus(); // Help move forward
+            }
             checkBtn.style.display = 'none';
 
-            // Mark completed
             completedSteps.add(stepId);
             updateDashboard(stepId, true);
         } else {
@@ -484,9 +503,20 @@
             menuItem.classList.remove('done');
             badge.innerHTML = "Not Started";
         }
-        
         const progress = (completedSteps.size / 5) * 100;
         document.getElementById('progress-fill').style.width = progress + '%';
+    }
+
+    function moveStep(nextId) {
+        document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
+        const nextStep = document.getElementById(`step-${nextId}`);
+        nextStep.classList.add('active');
+        
+        // SECTION FOCUS: Focus the heading of the new view
+        const heading = document.getElementById(`heading-${nextId}`);
+        if (heading) heading.focus();
+
+        window.scrollTo(0,0);
     }
 
     function resetTask(stepId) {
@@ -515,18 +545,11 @@
 
         completedSteps.delete(stepId);
         updateDashboard(stepId, false);
-    }
-
-    function moveStep(nextId) {
-        document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
-        document.getElementById(`step-${nextId}`).classList.add('active');
-        window.scrollTo(0,0);
+        moveStep(stepId);
     }
 
     function restartActivity() {
-        for (let i = 1; i <= 5; i++) {
-            resetTask(i);
-        }
+        for (let i = 1; i <= 5; i++) resetTask(i);
         completedSteps.clear();
         document.getElementById('progress-fill').style.width = '0%';
         moveStep(0);
