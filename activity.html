@@ -6,7 +6,6 @@
     <title>APA 7th Referencing Activity</title>
     <style>
         :root {
-            /* Light Mode Variables */
             --apa-blue: #2c3e50;
             --highlight: #3498db;
             --bg-light: #f4f7f6;
@@ -57,7 +56,6 @@
 
         h1 { color: var(--apa-blue); text-align: center; border-bottom: 2px solid var(--highlight); padding-bottom: 15px; }
 
-        /* Dashboard Styles */
         .menu-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px; }
         .menu-item { 
             padding: 20px; background: var(--zone-bg); border: 2px solid var(--border); 
@@ -94,6 +92,12 @@
             padding: 15px 20px; margin-bottom: 30px; border-radius: 0 8px 8px 0;
         }
 
+        .scenario-card {
+            background: var(--instruction-bg); border-left: 4px solid var(--apa-blue);
+            padding: 15px 20px; margin-bottom: 30px; border-radius: 0 8px 8px 0;
+            font-size: 1rem;
+        }
+
         .format-label { font-size: 0.85rem; text-transform: uppercase; color: var(--apa-blue); font-weight: bold; }
 
         .zone-title { font-weight: 600; margin: 15px 0 10px; color: var(--apa-blue); }
@@ -115,7 +119,6 @@
             transition: all 0.2s; user-select: none; font-size: 0.95rem;
             outline: none;
         }
-        /* KEY ACCESSIBILITY FIX: visible ring */
         .item:focus { border-color: var(--highlight); box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4); background: var(--instruction-bg); }
 
         .item.correct { background: var(--success); border-color: var(--success); color: white; cursor: default; }
@@ -290,6 +293,11 @@
             <span class="format-label">Format for book chapter</span><br>
             Author/s. (Year). Title In Editor (Ed.), <em>Title</em> (pp. pages). Publisher.
         </div>
+        
+        <div class="scenario-card">
+            <strong>Task:</strong> How would you reference just the chapter <strong>'Transference interpretations only?'</strong> by <strong>Leites, N.</strong> in the book <strong>'Essential papers on transference'</strong> edited by <strong>A. H. Esman</strong>?
+        </div>
+
         <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-4"></div>
         <div id="status-4" class="status-msg"></div>
@@ -404,7 +412,7 @@
 
     window.onload = () => { document.querySelectorAll('.source-zone').forEach(zone => shuffleZone(zone)); };
 
-    // SHARED MOVEMENT LOGIC
+    // Shared Movement logic
     function handleItemMove(item) {
         if (!item || item.classList.contains('correct')) return;
         const stepSection = item.closest('.step-section');
@@ -416,9 +424,7 @@
         else sourceZone.appendChild(item);
         
         item.classList.remove('incorrect');
-        
-        // FOCUS RETENTION: Keep focus on the item after it moves
-        setTimeout(() => item.focus(), 10);
+        setTimeout(() => item.focus(), 10); // Retain focus for keyboard users
     }
 
     document.addEventListener('click', e => {
@@ -426,7 +432,6 @@
         if (item) handleItemMove(item);
     });
 
-    // Keydown listener for Accessibility
     document.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') {
             if (e.target.classList.contains('item')) { 
@@ -442,12 +447,12 @@
 
     function validate(stepId, totalItems) {
         const targetZone = document.getElementById(`target-${stepId}`);
+        const sourceZone = document.getElementById(`source-${stepId}`);
         const statusMsg = document.getElementById(`status-${stepId}`);
         const finalCard = document.getElementById(`final-card-${stepId}`);
         const apaText = document.getElementById(`apa-text-${stepId}`);
         const nextBtn = document.getElementById(`next-${stepId}`);
         const checkBtn = document.getElementById(`check-${stepId}`);
-        const sourceZone = document.getElementById(`source-${stepId}`);
         const compTitle = document.getElementById(`comp-title-${stepId}`);
         const items = Array.from(targetZone.children);
         
@@ -456,7 +461,7 @@
             if (parseInt(item.dataset.order) === index + 1) {
                 item.classList.add('correct');
                 item.classList.remove('incorrect');
-                item.tabIndex = -1; // Locked
+                item.tabIndex = -1; // Lock from tabbing once verified
                 correctCount++;
             } else {
                 item.classList.add('incorrect');
@@ -481,7 +486,7 @@
             finalCard.classList.add('visible');
             if(nextBtn) {
                 nextBtn.classList.add('visible');
-                nextBtn.focus(); // Help move forward
+                nextBtn.focus();
             }
             checkBtn.style.display = 'none';
 
@@ -512,7 +517,7 @@
         const nextStep = document.getElementById(`step-${nextId}`);
         nextStep.classList.add('active');
         
-        // SECTION FOCUS: Focus the heading of the new view
+        // Accessibility focus shift
         const heading = document.getElementById(`heading-${nextId}`);
         if (heading) heading.focus();
 
