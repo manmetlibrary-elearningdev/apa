@@ -100,7 +100,7 @@
 
         .format-label { font-size: 0.85rem; text-transform: uppercase; color: var(--apa-blue); font-weight: bold; }
 
-        .zone-title { font-weight: 600; margin: 15px 0 10px; color: var(--apa-blue); }
+        .zone-title { font-weight: 600; margin: 15px 0 10px; color: var(--apa-blue); outline: none; }
         
         .drop-zone {
             width: 100%; min-height: 100px;
@@ -182,11 +182,11 @@
     </div>
 
     <div id="step-1" class="step-section">
-        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" id="back-1" onclick="moveStep(0)">← Back to Menu</button>
         <h2 id="heading-1" tabindex="-1" style="outline:none;">Book</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components into the correct order. Use <strong>Tab</strong> to navigate and <strong>Enter/Space</strong> to move items.</span>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
         </div>
         <div class="instruction-card">
             <span class="format-label">Format for book</span><br>
@@ -216,11 +216,11 @@
     </div>
 
     <div id="step-2" class="step-section">
-        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" id="back-2" onclick="moveStep(0)">← Back to Menu</button>
         <h2 id="heading-2" tabindex="-1" style="outline:none;">Online book</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components into the correct order.</span>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
         </div>
         <div class="instruction-card">
             <span class="format-label">Format for online book</span><br>
@@ -251,11 +251,11 @@
     </div>
 
     <div id="step-3" class="step-section">
-        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" id="back-3" onclick="moveStep(0)">← Back to Menu</button>
         <h2 id="heading-3" tabindex="-1" style="outline:none;">Journal article</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components into the correct order.</span>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
         </div>
         <div class="instruction-card">
             <span class="format-label">Format for journal article</span><br>
@@ -287,11 +287,11 @@
     </div>
 
     <div id="step-4" class="step-section">
-        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" id="back-4" onclick="moveStep(0)">← Back to Menu</button>
         <h2 id="heading-4" tabindex="-1" style="outline:none;">Book chapter</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components into the correct order.</span>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
         </div>
         <div class="instruction-card">
             <span class="format-label">Format for book chapter</span><br>
@@ -326,11 +326,11 @@
     </div>
 
     <div id="step-5" class="step-section">
-        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" id="back-5" onclick="moveStep(0)">← Back to Menu</button>
         <h2 id="heading-5" tabindex="-1" style="outline:none;">Webpage</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components into the correct order.</span>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
         </div>
         <div class="instruction-card">
             <span class="format-label">Format for webpage</span><br>
@@ -360,7 +360,7 @@
     </div>
 
     <div id="step-6" class="step-section">
-        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" id="back-6" onclick="moveStep(0)">← Back to Menu</button>
         <h2 id="heading-6" tabindex="-1" style="outline:none;">APA 7th Referencing Summary</h2>
         <div class="interaction-guide">
             <h3>Format Cheat Sheet</h3>
@@ -451,7 +451,7 @@
         });
 
         if (items.length < totalItems) {
-            statusMsg.innerHTML = "Place all components first!";
+            statusMsg.innerHTML = "Place all components in the box first!";
             statusMsg.className = "status-msg error";
             statusMsg.focus();
             return;
@@ -497,7 +497,7 @@
 
         statusMsg.innerHTML = "Excellent! ✓ All parts are correctly formatted.";
         statusMsg.className = "status-msg success";
-        const fullRef = items.map(i => i.innerHTML.replace(/<span.*span>/g, '')).join(' ');
+        const fullRef = items.map(i => i.innerHTML).join(' ');
         apaText.innerHTML = fullRef;
         sourceZone.style.display = 'none';
         compTitle.style.display = 'none';
